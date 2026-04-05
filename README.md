@@ -1,74 +1,31 @@
-## Adrena x Autonom Trading Competition
+# Adrena Trading Competition Platform
 
-Full‑stack project:
-- **Backend**: FastAPI (`backend/server.py`)
-- **Frontend**: React (CRA + CRACO) (`frontend/`)
-- **DB**: MongoDB
+Gamified trading competition dashboard for [Adrena](https://adrena.xyz) — a Solana perpetual DEX.
 
-## Prerequisites
-- **Node.js**: 18/20 LTS recommended (frontend toolchain may fail on Node 22+)
-- **Yarn**: classic (v1). (The repo pins Yarn 1 in `frontend/package.json`.)
-- **Python**: 3.10+ recommended
-- **Docker Desktop** (optional but recommended) for MongoDB
+**Stack**: React 19 + FastAPI + MongoDB + Solana Wallets + Adrena Protocol API
 
-## Configuration
+## Quick Start
 
-### Backend env (`backend/.env`)
-Create `backend/.env` (you can copy from `backend/.env.example`):
-
-- **MONGO_URL**: Mongo connection string
-- **DB_NAME**: database name
-- **CORS_ORIGINS**: comma-separated origins allowed by CORS (e.g. `http://localhost:3000`)
-- **OPENAI_API_KEY** (optional): enables `/api/ai/insights`
-- **OPENAI_MODEL** (optional): defaults to `gpt-4o-mini`
-
-### Frontend env (`frontend/.env`)
-Optional. If you don't set anything, frontend defaults to backend at `http://<host>:8000`.
-
-- **REACT_APP_BACKEND_URL**: e.g. `http://localhost:8000`
-
-## Run locally (Windows / PowerShell)
-
-### 1) Start MongoDB
-With Docker:
-
-```powershell
-docker run -d --name mongo -p 27017:27017 mongo:7
-```
-
-### 2) Start backend
-
+### Backend
 ```powershell
 cd backend
+copy .env.example .env          # fill in your MongoDB URL
 py -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-python -m uvicorn server:app --reload --port 8000
+python -m uvicorn server:app --reload --port 8001
 ```
 
-### 3) Start frontend
-
+### Frontend
 ```powershell
 cd frontend
-yarn install
-yarn start
+npm install
+npm start
 ```
 
-Open:
-- **Frontend**: `http://localhost:3000`
-- **Backend**: `http://localhost:8000`
+Then open **http://localhost:3000** and seed demo data: `POST http://localhost:8001/api/seed`
 
-Tip: after backend starts, you can seed demo data:
-- POST `http://localhost:8000/api/seed`
+## Documentation
 
-## Deploy with Docker (recommended)
-You can deploy using `docker compose` (Mongo + backend + frontend). See `docker-compose.yml`.
-
-```powershell
-docker compose up --build
-```
-
-Then open `http://localhost:3000`.
-
-## Upload to GitHub
-See `docs/GITHUB.md`.
+- **[docs/GITHUB.md](docs/GITHUB.md)** — Project overview, features, tech stack, API endpoints, structure
+- **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)** — Full setup guide, environment variables, troubleshooting

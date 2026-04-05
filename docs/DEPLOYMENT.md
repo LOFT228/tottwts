@@ -1,74 +1,84 @@
-## Deployment & Configuration
+# How to Run the Project
 
-## Services
-- **MongoDB**: stores players/teams/competitions/etc.
-- **Backend (FastAPI)**: serves REST + WebSockets under `/api/*`
-- **Frontend (React)**: UI
+## What You Need
 
-## Environment variables
+- **Python 3.10+** — for the backend
+- **Node.js 18 or 20 LTS** — for the frontend (Node 22+ may cause issues)
+- **npm** or **yarn** — for installing frontend dependencies
+- **MongoDB** — either [MongoDB Atlas](https://www.mongodb.com/atlas) (cloud, free tier) or a local instance
 
-### Backend (`backend/.env`)
-Required:
-- **MONGO_URL**: e.g. `mongodb://localhost:27017`
-- **DB_NAME**: e.g. `adrena`
+---
 
-Recommended:
-- **CORS_ORIGINS**: e.g. `http://localhost:3000` (comma-separated if multiple)
-
-Optional:
-- **OPENAI_API_KEY**: enables `POST /api/ai/insights`
-- **OPENAI_MODEL**: defaults to `gpt-4o-mini`
-
-### Frontend (`frontend/.env`)
-Optional:
-- **REACT_APP_BACKEND_URL**: e.g. `http://localhost:8000`
-
-If not set, frontend will default to `http(s)://<current-host>:8000`.
-
-## Local run (Windows / PowerShell)
-
-Notes:
-- Use **Node 18/20 LTS** for the frontend toolchain (see `.nvmrc`). CRA 5 builds may fail on Node 22+.
-- On Windows, some dependencies may run Unix-only postinstall scripts. If `yarn install` fails, use `yarn install --ignore-scripts`.
-
-### MongoDB
-With Docker:
-
-```powershell
-docker run -d --name mongo -p 27017:27017 mongo:7
-```
-
-### Backend
+## 1. Backend Setup
 
 ```powershell
 cd backend
+```
+
+### Create `.env` file
+Copy the example and fill in your values:
+```powershell
 copy .env.example .env
+```
+
+Edit `backend/.env`:
+```
+MONGO_URL=mongodb+srv://your_user:your_pass@your_cluster.mongodb.net/?retryWrites=true&w=majority
+DB_NAME=adrena
+CORS_ORIGINS=http://localhost:3000
+```
+
+### Install dependencies and run
+```powershell
 py -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-python -m uvicorn server:app --reload --port 8000
+python -m uvicorn server:app --reload --port 8001
 ```
 
-### Frontend
+Backend will be at: **http://localhost:8001**
+
+### Seed demo data (first time)
+After the backend is running, seed the database with test players, teams, and competitions:
+```
+POST http://localhost:8001/api/seed
+```
+You can use a browser, Postman, or curl.
+
+---
+
+## 2. Frontend Setup
 
 ```powershell
 cd frontend
-yarn install --ignore-scripts
-yarn start
+npm install
+npm start
 ```
 
-## Docker deployment (single machine)
-Use the provided `docker-compose.yml`:
+Frontend will be at: **http://localhost:3000**
 
-```powershell
-docker compose up --build
-```
+> If `npm install` fails with postinstall errors on Windows, try:
+> ```powershell
+> npm install --ignore-scripts
+> ```
 
-URLs:
-- Frontend: `http://localhost:3000`
-- Backend: `http://localhost:8000`
+---
 
-## Production notes
-- Put frontend behind a real domain + TLS (then WebSockets will automatically use `wss://`).
-- Restrict **CORS_ORIGINS** to your real domain(s).
-- Provide `OPENAI_API_KEY` only on backend (never in frontend).
+## Environment Variables Reference
+
+### Backend (`backend/.env`)
+
+| Variable | Required | Description |
+|---|---|---|
+| `MONGO_URL` | Yes | MongoDB connection string |
+| `DB_NAME` | Yes | Database name (e.g. `adrena`) |
+| `CORS_ORIGINS` | Yes | Allowed frontend origin (e.g. `http://localhost:3000`) |
+| `OPENAI_API_KEY` | No | Enables AI trading insights endpoint |
+| `OPENAI_MODEL` | No | Defaults to `gpt-4o-mini` |
+
+### Frontend (`frontend/.env`)
+Optional. If not set, frontend defaults to `http://localhost:8001`.
+
+| Variable | Required | Description |
+|---|---|---|
+| `REACT_APP_BACKEND_URL` | No | Backend URL (e.g. `http://localhost:8001`) |
