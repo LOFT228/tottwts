@@ -18,10 +18,6 @@ build/
 frontend/build/
 dist/
 
-# Test artifacts
-test_reports/
-test_result.md
-
 # Platform / IDE
 .emergent/
 .vscode/
