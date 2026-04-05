@@ -1,0 +1,126 @@
+/* =====================================================
+   ADRENA PRO — Clean SaaS Design System
+   ===================================================== */
+
+/* =====================================================
+   KEYFRAMES
+   ===================================================== */
+@keyframes blurUp {
+  from { opacity: 0; filter: blur(12px); transform: translateY(12px) scale(0.97); }
+  to   { opacity: 1; filter: blur(0px);  transform: translateY(0) scale(1); }
+}
+@keyframes blurDown {
+  from { opacity: 0; filter: blur(12px); transform: translateY(-10px); }
+  to   { opacity: 1; filter: blur(0px);  transform: translateY(0); }
+}
+@keyframes blurScale {
+  from { opacity: 0; filter: blur(16px); transform: scale(0.92); }
+  to   { opacity: 1; filter: blur(0px);  transform: scale(1); }
+}
+@keyframes blurIn {
+  from { opacity: 0; filter: blur(10px); }
+  to   { opacity: 1; filter: blur(0px); }
+}
+@keyframes blurLeft {
+  from { opacity: 0; filter: blur(8px); transform: translateX(-14px); }
+  to   { opacity: 1; filter: blur(0px); transform: translateX(0); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes livePing {
+  0%   { box-shadow: 0 0 0 0 rgba(99,102,241,0.5); }
+  70%  { box-shadow: 0 0 0 6px rgba(99,102,241,0); }
+  100% { box-shadow: 0 0 0 0 rgba(99,102,241,0); }
+}
+
+/* =====================================================
+   ANIMATION CLASSES
+   ===================================================== */
+.animate-slide-up       { animation: blurUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-slide-in-left  { animation: blurLeft 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-fade-in        { animation: blurIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-blur-in        { animation: blurScale 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-blur-up        { animation: blurUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-blur-down      { animation: blurDown 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-blur-scale     { animation: blurScale 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* Shimmer skeleton */
+.shimmer-bg {
+  background: linear-gradient(90deg, hsl(240 5% 7%) 25%, hsl(240 4% 11%) 50%, hsl(240 5% 7%) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* =====================================================
+   STAGGER CHILDREN (blur variant)
+   ===================================================== */
+.stagger-children > * {
+  opacity: 0;
+  animation: blurUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 60ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 120ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 180ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 240ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 300ms; }
+.stagger-children > *:nth-child(7) { animation-delay: 360ms; }
+.stagger-children > *:nth-child(8) { animation-delay: 420ms; }
+
+/* =====================================================
+   RANK + RARITY
+   ===================================================== */
+.rank-1 { color: #6366f1; }
+.rank-2 { color: #818cf8; }
+.rank-3 { color: #a5b4fc; }
+
+.rarity-common    { border-color: hsl(240 4% 20%); color: hsl(240 5% 46%); }
+.rarity-rare      { border-color: #6366f1; color: #818cf8; }
+.rarity-epic      { border-color: #8b5cf6; color: #a78bfa; }
+.rarity-legendary { border-color: #6366f1; color: #6366f1; }
+
+/* =====================================================
+   CARD HOVER
+   ===================================================== */
+.card-hover {
+  transition: border-color 0.15s ease-out;
+}
+.card-hover:hover {
+  border-color: hsl(240 4% 20%);
+}
+
+/* Live dot pulse */
+.live-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #6366f1;
+  box-shadow: 0 0 0 0 rgba(99,102,241,0.5);
+  animation: livePing 1.5s ease-out infinite;
+}
+
+/* =====================================================
+   LEGACY CLASS ALIASES — no-op to prevent breakage
+   ===================================================== */
+.glow-green, .glow-red, .glow-cyan, .glow-purple,
+.text-glow-green, .text-glow-red, .text-glow-cyan, .text-glow-purple,
+.stroke-green, .stroke-cyan, .stroke-purple,
+.grid-pattern, .scanlines,
+.card-glow-hover, .card-glow-hover-green, .card-glow-hover-purple,
+.animate-float, .animate-glitch,
+.animate-neon-flicker, .animate-terminal-blink,
+.animate-pulse-glow, .animate-pulse-glow-green, .animate-pulse-glow-purple {
+  /* intentionally empty — legacy classes removed in redesign */
+}
+.noise-overlay::before { display: none; }
+.btn-skew { transform: none; }
+.btn-skew > * { transform: none; }
+.stagger-blur > * {
+  opacity: 0;
+  animation: blurScale 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.stagger-blur > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-blur > *:nth-child(2) { animation-delay: 70ms; }
+.stagger-blur > *:nth-child(3) { animation-delay: 140ms; }
+.stagger-blur > *:nth-child(4) { animation-delay: 210ms; }

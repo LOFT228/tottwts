@@ -1,0 +1,57 @@
+# Environment files
+.env
+*.env
+*.env.*
+backend/.env
+
+# Dependencies
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Build outputs
+build/
+frontend/build/
+dist/
+
+# Test artifacts
+test_reports/
+test_result.md
+
+# Platform / IDE
+.emergent/
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
+*.pem
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Cache
+.cache/
+*.pack
+
+# Local scripts
+start.ps1
+
+# Git config (local)
+.gitconfig
+
+# Lock files (frontend has its own)
+/package-lock.json
+
+# Coverage
+coverage/
+
+# Copilot skills (IDE config)
+.github/skills/
